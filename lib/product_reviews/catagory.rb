@@ -1,6 +1,7 @@
 class ProductReviews::Catagory
     attr_accessor :name, :url, :description, :title, :winner, :summary, :price
 
+  #scrapes the main page and adds each catagory and its url to a hash and places the hash into and array
   def self.catagory
     doc =  Nokogiri::HTML(open("http://www.thewirecutter.com"))
     section = doc.search(".wire_leaderboard a.leaderboard-title-inner")
@@ -15,9 +16,9 @@ class ProductReviews::Catagory
      product_list
   end
 
+#adds the description,title,winning product, a summary and price into a hash of arrays
   def self.profile_page(url)
     doc = Nokogiri::HTML(open(url))
-
     grid_items = []
     grid_items << {description:  doc.search(".content p").inner_text}
      doc.search(".grid-item").each do |obj|
