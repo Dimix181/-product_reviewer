@@ -29,7 +29,13 @@ class ProductReviews::Catagory
                 price:  obj.search(".grid-price").inner_text
               }
       end
-      grid_items
+       self.sanitizer(grid_items)
+   end
+
+   def self.sanitizer (hash)
+      hash.keep_if do |key,value|
+        key[:title] != ''
+      end
    end
 
 end
