@@ -33,9 +33,13 @@ class ProductReviews::Catagory
    end
 
    def self.sanitizer (hash)
-      hash.keep_if do |key,value|
-        key[:title] != ''
-      end
-   end
+      hash.each do |key,value|
+          if key[:description] == nil
+             key[:summary].gsub!('Read More >','')
+           end
+        end
 
+        hash.delete_if{|key,value| key[:title] == ''}
+
+  end
 end
