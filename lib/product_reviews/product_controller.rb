@@ -17,6 +17,7 @@
       def menu
         @list = ProductReviews::Catagory.catagory
         @list.each.with_index(1){|obj, i| puts "#{i} - #{obj[:name]}" }
+  binding.pry
         # list catagories
       end
 
@@ -39,9 +40,11 @@
 
             @profile.each_with_index do |obj, i|
                   if obj[:title] !=nil
+                    # list subcatagories
                     puts "#{i} - #{obj[:title]}"
                   end
                 end
+    binding.pry
               puts "Please Choose a Subcatagory !!"
               display(@input = gets.strip.downcase)
           end
@@ -60,7 +63,7 @@
       puts "___________________________________________________"
       puts "#{@profile[input.to_i][:summary]}"
       puts "___________________________________________________"
-      
+
         menu
     end
 
