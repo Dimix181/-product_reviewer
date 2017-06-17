@@ -43,6 +43,7 @@
           url = @list[@input.to_i - 1][:url]
         @list = ProductReviews::Catagory.profile_page(url)
         @list.each_with_index do |obj, i|
+          #this ensures the de
            if obj[:title] !=nil
              # list subcatagories
              puts "#{i} - #{obj[:title]}"
