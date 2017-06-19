@@ -25,7 +25,7 @@
           puts "Please Choose a Catagory to Get Started\n or Type 'exit' at anytime to quit!"
 
         @input = gets.strip.downcase
-        system("clear") #clears the screen
+            system("clear") #clears the screen
           if @input == "exit"
              exit
            elsif @input.to_i > @list.size || @input.to_i < 1
@@ -40,10 +40,11 @@
 
       def subcatagories(input)
           system( "clear" ) #clears the screen
+
           url = @list[@input.to_i - 1][:url]
         @list = ProductReviews::Catagory.profile_page(url)
         @list.each_with_index do |obj, i|
-          #this ensures the de
+
            if obj[:title] !=nil
              # list subcatagories
              puts "#{i} - #{obj[:title]}"
@@ -53,32 +54,18 @@
          puts " Please Choose a Subcatagory !!\n"
          @input = gets.strip.downcase
          system("clear") #clears the screen
-          @input == "exit" ? exit : display(@input)
+         if @input == "exit"
+           exit
+         elsif @input.to_i > @list.size-1 || @input.to_i <=0
+             puts "Invalid Input, Please Try Again!!"
+             menu
+         else
+           board = ProductReviews::Board.new
+           board.display(@input, @list)
+          menu #returns back to the main menu
+         end
+
        end
-
-
-
-    def display(input)
-      system("clear") #clears the screen
-    begin
-      puts "___________________________________________________"
-      puts"    #{@list[0][:description] } "
-      puts "___________________________________________________"
-      puts " ****#{@list[input.to_i][:title]} ****"
-      puts "     #{@list[input.to_i][:winner]}       #{@list[input.to_i][:price]}"
-      puts "___________________________________________________"
-      puts "#{@list[input.to_i][:summary]}"
-      puts "___________________________________________________"
-     rescue
-        puts " "
-        puts "You enter an invalid option\n Please try again!!"
-        puts " "
-        menu
-    end
-      menu # back to main menu if successful
-    end
-
-
 
     def exit #aborts the program
       system("clear") #clears the screen
