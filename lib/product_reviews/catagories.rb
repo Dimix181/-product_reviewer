@@ -1,7 +1,6 @@
 
-
 class ProductReviews::Catagories
-  attr_accessor :name, :url, :description, :title, :winner, :summary, :price, :subcatagories
+  attr_accessor :name, :url, :subcatagories
 
   @@all = []
 

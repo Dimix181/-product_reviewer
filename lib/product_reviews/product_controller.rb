@@ -15,7 +15,7 @@
         subcatagories_list(@objects_created)
         #display the products info
         ProductReviews::Board.display(@selected_obj, @selected_obj_description)
-      #system("clear")
+
 
     end
 
@@ -42,9 +42,9 @@
         end
       puts " "
       @input = gets.downcase.strip
+       ProductReviews::Input_handler.user_input(@input)
 
     end
-
 
     def add_subcatagories(array_of_obj)
         #selects the object extracts the url
@@ -64,12 +64,7 @@
         @input = gets.downcase.strip
         @selected_obj = obj.subcatagories[@input.to_i]
         @selected_obj_description = obj.subcatagories[0][:description]
-
     end
-
-
-
-#=======================================================
 
     def exit #aborts the program
       system("clear") #clears the screen

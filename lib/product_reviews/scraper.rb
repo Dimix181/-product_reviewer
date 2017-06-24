@@ -1,5 +1,5 @@
+
 class ProductReviews::Scraper
-  attr_accessor :name, :url, :description, :title, :winner, :summary, :price, :readmore
 
     #scrapes the main page and adds each catagory and its url to a hash and places the hash into and array
   def self.catagory
