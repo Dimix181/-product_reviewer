@@ -2,70 +2,74 @@
 #gem controller
  class ProductReviews::ProductController
     def call
+        #greeting message
       greetings
-      menu
+        #creates objects from each catagory
+      create_main_objects
+        #all objects created
+        @objects_created = ProductReviews::Catagories.all
+        #display each objects name
+        main_catagories_list (@objects_created)
+      system("clear")
+        add_subcatagories(@objects_created)
+        subcatagories_list(@objects_created)
+        #display the products info
+        ProductReviews::Board.display(@selected_obj, @selected_obj_description)
+      #system("clear")
+
     end
-
-
 
     def greetings
       puts "****** Welcome to The Product Reviewer ****"
       puts "*******************************************"
+      puts "Choose a Catagory to Get Started"
+      puts " "
+
     end
 
-      def menu
-        @list = ProductReviews::Catagory.catagory
-        @list.each.with_index(1){|obj, i| puts "#{i} - #{obj[:name]}" }
-          # list catagories
-          main_catagories
-      end
+    def create_main_objects
+      # gets all the catagories from index doc.
+      main_productlist = ProductReviews::Scraper.catagory
+      # creates an object from each element in the productlist
+      ProductReviews::Catagories.create_from_hashes(main_productlist)
+    end
 
-      def main_catagories
-        puts ""
-          puts "Please Choose a Catagory to Get Started\n or Type 'exit' at anytime to quit!"
+    def main_catagories_list (objects_created)
 
-        @input = gets.strip.downcase
-            system("clear") #clears the screen
-          if @input == "exit"
-             exit
-           elsif @input.to_i > @list.size || @input.to_i < 1
-             puts ""
-                puts "Invalid Input, Please Try Again!!"
-                puts ""
-                  menu
-            else
-              subcatagories(@input)
+      objects_created.each.with_index(1) do |obj, i |
+
+          puts "#{i} #{obj.name}"
+        end
+      puts " "
+      @input = gets.downcase.strip
+
+    end
+
+
+    def add_subcatagories(array_of_obj)
+        #selects the object extracts the url
+          obj = array_of_obj[@input.to_i-1]
+          array = ProductReviews::Scraper.profile_page(obj.url)
+          obj.save(array)
+    end
+
+    def subcatagories_list(array_of_obj)
+      obj = array_of_obj[@input.to_i-1]
+      obj.subcatagories.each.with_index do |obj, i|
+          if obj[:title] != nil
+            puts "#{i} #{obj[:title]}"
           end
-       end
+        end
+        puts " "
+        @input = gets.downcase.strip
+        @selected_obj = obj.subcatagories[@input.to_i]
+        @selected_obj_description = obj.subcatagories[0][:description]
 
-      def subcatagories(input)
-          system( "clear" ) #clears the screen
+    end
 
-          url = @list[@input.to_i - 1][:url]
-        @list = ProductReviews::Catagory.profile_page(url)
-        @list.each_with_index do |obj, i|
 
-           if obj[:title] !=nil
-             # list subcatagories
-             puts "#{i} - #{obj[:title]}"
-           end
-         end
 
-         puts " Please Choose a Subcatagory !!\n"
-         @input = gets.strip.downcase
-         system("clear") #clears the screen
-         if @input == "exit"
-           exit
-         elsif @input.to_i > @list.size-1 || @input.to_i <=0
-             puts "Invalid Input, Please Try Again!!"
-             menu
-         else
-           board = ProductReviews::Board.new
-           board.display(@input, @list)
-          menu #returns back to the main menu
-         end
-
-       end
+#=======================================================
 
     def exit #aborts the program
       system("clear") #clears the screen

@@ -1,18 +1,20 @@
 class ProductReviews::Board
 
 
-    def display(input, list)
+    def self.display(obj, description)
       system("clear") #clears the screen
 
         puts "___________________________________________________"
-        puts"    #{list[0][:description] } "
+        puts" #{description}"
         puts "___________________________________________________"
-        puts " ****#{list[input.to_i][:title]} ****"
-        puts "     #{list[input.to_i][:winner]}       #{list[input.to_i][:price]}"
+        puts "#{obj[:readmore]} "
         puts "___________________________________________________"
-        puts "#{list[input.to_i][:summary]}"
+        puts " ****#{obj[:title]} ****"
+        puts "     #{obj[:winner]}       #{obj[:price]}"
         puts "___________________________________________________"
-  
+        puts "#{obj[:summary]}"
+        puts "___________________________________________________"
+
     end
 
 end
