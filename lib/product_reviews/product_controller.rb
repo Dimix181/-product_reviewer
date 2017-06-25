@@ -1,6 +1,8 @@
 
 #gem controller
  class ProductReviews::ProductController
+
+
     def call
         #greeting message
       greetings
@@ -11,6 +13,12 @@
         #display each objects name
         main_catagories_list (@objects_created)
       system("clear")
+
+      @validator = ProductReviews::Input_handler.new
+binding.pry
+    if  @validator.valid?(@input) == false
+      main_catagories_list (@objects_created)
+  end
         add_subcatagories(@objects_created)
         subcatagories_list(@objects_created)
         #display the products info
@@ -41,8 +49,7 @@
           puts "#{i} #{obj.name}"
         end
       puts " "
-      @input = gets.downcase.strip
-       ProductReviews::Input_handler.user_input(@input)
+      @input = gets.downcase.strip!
 
     end
 
@@ -66,10 +73,7 @@
         @selected_obj_description = obj.subcatagories[0][:description]
     end
 
-    def exit #aborts the program
-      system("clear") #clears the screen
-        abort "Thank you for using Product Reviewer\n See you soon"
-    end
+
 
 
  end

@@ -1,25 +1,36 @@
 class ProductReviews::Input_handler
 
-  def self.user_input(input, url=nil )
-    
-  binding.pry
-    if input == "exit"
-       system("clear") #clears the screen
-          abort "Thank you for using Product Reviewer\n See you soon" #aborts the program
-    elsif input == "open"
-        system("open #{url}")
-
-    elsif input.to_i <= 0
-      puts "You entered an invalid option"
-
-    elsif #compare length of calling method to input if greater
-      puts "You entered and option that doesn't exist"
-      puts "Try Again !!"
-      #restart method called.
+    def valid?(input)
+binding.pry
+      if  input.to_i <= 0 || input.to_i > ProductReviews::Catagories.all.length
+        #clears the screen
+       system("clear")
+        puts ""
+        puts "An Invalid Option was entered!"
+        puts "Please Try Again!"
+        puts ""
+        sleep(1)
+  #binding.pry
+      false
     else
-      input
+  #binding.pry
+      true
+      end
     end
 
-  end
+    def restart
+
+    end
+
+    def open (url)
+      system("open #{url}")
+    end
+
+    def exit
+      #clears the screen
+     system("clear")
+      #aborts the program
+      abort "Thank you for using Product Reviewer\n See you soon"
+    end
 
 end
