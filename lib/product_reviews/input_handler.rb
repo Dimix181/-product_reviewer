@@ -11,6 +11,8 @@ binding.pry
         puts ""
         sleep(1)
       false
+    elsif input.to_i <= 0 || input.to_i > 
+
        else
       true
      end
