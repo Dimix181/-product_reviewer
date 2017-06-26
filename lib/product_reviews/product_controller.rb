@@ -4,26 +4,28 @@
 
 
     def call
-        #greeting message
+
       greetings
-        #creates objects from each catagory
+
       create_main_objects
-        #all objects created
+
         @objects_created = ProductReviews::Catagories.all
-        #display each objects name
+
         main_catagories_list (@objects_created)
       system("clear")
 
       @validator = ProductReviews::Input_handler.new
-binding.pry
-    if  @validator.valid?(@input) == false
-      main_catagories_list (@objects_created)
-  end
+#binding.pry
+        if  @validator.valid?(@input) == false
+          main_catagories_list (@objects_created)
+        end
+#binding.pry
         add_subcatagories(@objects_created)
+#binding.pry
         subcatagories_list(@objects_created)
-        #display the products info
+#binding.pry
         ProductReviews::Board.display(@selected_obj, @selected_obj_description)
-
+#binding.pry
 
     end
 
@@ -36,14 +38,12 @@ binding.pry
     end
 
     def create_main_objects
-      # gets all the catagories from index doc.
       main_productlist = ProductReviews::Scraper.catagory
-      # creates an object from each element in the productlist
+
       ProductReviews::Catagories.create_from_hashes(main_productlist)
     end
 
     def main_catagories_list (objects_created)
-
       objects_created.each.with_index(1) do |obj, i |
 
           puts "#{i} #{obj.name}"
@@ -61,7 +61,9 @@ binding.pry
     end
 
     def subcatagories_list(array_of_obj)
+#binding.pry
       obj = array_of_obj[@input.to_i-1]
+#binding.pry
       obj.subcatagories.each.with_index do |obj, i|
           if obj[:title] != nil
             puts "#{i} #{obj[:title]}"
@@ -69,6 +71,7 @@ binding.pry
         end
         puts " "
         @input = gets.downcase.strip
+#binding.pry
         @selected_obj = obj.subcatagories[@input.to_i]
         @selected_obj_description = obj.subcatagories[0][:description]
     end

@@ -1,6 +1,6 @@
 
 class ProductReviews::Catagories
-  attr_accessor :name, :url, :subcatagories
+  attr_accessor :name, :url, :subcatagories, :description
 
   @@all = []
 
@@ -25,6 +25,7 @@ class ProductReviews::Catagories
     end
 
     def save (array)
+  #    self.all.each{|obj| binding.pry  }
       @subcatagories << array
       @subcatagories.flatten!
     end

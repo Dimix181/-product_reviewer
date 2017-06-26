@@ -10,12 +10,10 @@ binding.pry
         puts "Please Try Again!"
         puts ""
         sleep(1)
-  #binding.pry
       false
-    else
-  #binding.pry
+       else
       true
-      end
+     end
     end
 
     def restart
