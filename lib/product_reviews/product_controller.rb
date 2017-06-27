@@ -19,7 +19,10 @@
         subcatagories_list(@objects_created)
 
         ProductReviews::Board.display(@selected_obj, @selected_obj_description)
-        ProductReviews::Board.choice
+
+      if ProductReviews::Board.choice(@selected_obj) == "continue"
+      call
+      end
 
 
     end
@@ -33,9 +36,10 @@
     end
 
     def create_main_objects
-      main_productlist = ProductReviews::Scraper.catagory
-
-      ProductReviews::Catagories.create_from_hashes(main_productlist)
+      if  ProductReviews::Catagories.all.empty? == true
+        main_productlist = ProductReviews::Scraper.catagory
+        ProductReviews::Catagories.create_from_hashes(main_productlist)
+      end
     end
 
     def main_catagories_list (objects_created)
@@ -46,13 +50,13 @@
 
       puts " "
       @input = gets.downcase.strip!
-
+binding.pry
     end
 
      def add_subcatagories(array_of_obj)
 
           obj = array_of_obj[@input.to_i-1]
-
+        if obj.subcatagories.empty? == true
           array = ProductReviews::Scraper.profile_page(obj.url)
 
           array.each do |element|
@@ -62,6 +66,7 @@
               obj.subcatagories << element
             end
           end
+        end
       end
 
     def subcatagories_list(array_of_obj)

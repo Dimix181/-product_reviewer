@@ -19,7 +19,7 @@ class ProductReviews::Board
         puts "___________________________________________________"
       end
 
-        def self.choice
+        def self.choice (obj)
           puts "Type:"
           puts "'Exit' to Terminate"
           puts "'Continue' to Slect another Product"
@@ -28,7 +28,7 @@ class ProductReviews::Board
             if @input == "open"
               system("open #{obj[:readmore]} ")
             elsif @input == "continue"
-              #starts all over again
+              "continue"
             elsif @input == "exit"
               system("clear")
               abort "Thank you for using Product Reviewer\n See you soon"
