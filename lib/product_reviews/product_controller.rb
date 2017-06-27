@@ -14,18 +14,13 @@
         main_catagories_list (@objects_created)
       system("clear")
 
-      @validator = ProductReviews::Input_handler.new
-#binding.pry
-        if  @validator.valid?(@input) == false
-          main_catagories_list (@objects_created)
-        end
-#binding.pry
         add_subcatagories(@objects_created)
-#binding.pry
+
         subcatagories_list(@objects_created)
-#binding.pry
+
         ProductReviews::Board.display(@selected_obj, @selected_obj_description)
-#binding.pry
+        ProductReviews::Board.choice
+
 
     end
 
@@ -48,33 +43,52 @@
 
           puts "#{i} #{obj.name}"
         end
+
       puts " "
       @input = gets.downcase.strip!
 
     end
 
-    def add_subcatagories(array_of_obj)
-        #selects the object extracts the url
+     def add_subcatagories(array_of_obj)
+
           obj = array_of_obj[@input.to_i-1]
+
           array = ProductReviews::Scraper.profile_page(obj.url)
-          obj.save(array)
-    end
+
+          array.each do |element|
+            if element[:description] != nil
+              obj.description = element[:description]
+              else
+              obj.subcatagories << element
+            end
+          end
+      end
 
     def subcatagories_list(array_of_obj)
-#binding.pry
+
       obj = array_of_obj[@input.to_i-1]
-#binding.pry
-      obj.subcatagories.each.with_index do |obj, i|
+
+      obj.subcatagories.each.with_index(1) do |obj, i|
           if obj[:title] != nil
             puts "#{i} #{obj[:title]}"
           end
         end
         puts " "
         @input = gets.downcase.strip
-#binding.pry
-        @selected_obj = obj.subcatagories[@input.to_i]
-        @selected_obj_description = obj.subcatagories[0][:description]
+
+    if @input.to_i <= 0 || @input.to_i > obj.subcatagories.size
+
+      puts "#{@input} It's and Invalid Option"
+      puts "Try Again !!"
+
+       main_catagories_list (@objects_created)
+     else
+
+       @selected_obj = obj.subcatagories[@input.to_i-1]
+       @selected_obj_description = obj.description
     end
+
+end
 
 
 
