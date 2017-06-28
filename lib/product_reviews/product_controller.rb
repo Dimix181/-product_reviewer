@@ -50,7 +50,12 @@
 
       puts " "
       @input = gets.downcase.strip!
-binding.pry
+
+      if @input.to_i <= 0 || @input.to_i > objects_created.size
+        puts "#{@input} Is an Invalid Option"
+        puts "Try Again !!"
+        main_catagories_list (@objects_created)
+      end
     end
 
      def add_subcatagories(array_of_obj)
@@ -83,10 +88,10 @@ binding.pry
 
     if @input.to_i <= 0 || @input.to_i > obj.subcatagories.size
 
-      puts "#{@input} It's and Invalid Option"
+      puts "#{@input} Is an Invalid Option"
       puts "Try Again !!"
 
-       main_catagories_list (@objects_created)
+      main_catagories_list (@objects_created)
      else
 
        @selected_obj = obj.subcatagories[@input.to_i-1]

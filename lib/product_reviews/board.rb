@@ -22,8 +22,9 @@ class ProductReviews::Board
         def self.choice (obj)
           puts "Type:"
           puts "'Exit' to Terminate"
-          puts "'Continue' to Slect another Product"
+          puts "'Continue' to Select another Product"
           puts "'Open' to open product page in your browser"
+          puts ""
           @input = gets.downcase.strip
             if @input == "open"
               system("open #{obj[:readmore]} ")
