@@ -8,10 +8,6 @@ class ProductReviews::Catagories
       @@all
   end
 
-  def all
-      @@all
-  end
-
     def self.create_from_hashes(product_list)
       product_list.each { |hash| self.new(hash) }
     end
@@ -22,12 +18,6 @@ class ProductReviews::Catagories
           end
       @@all << self
       @subcatagories = []
-    end
-
-    def save (array)
-  #    self.all.each{|obj| binding.pry  }
-      @subcatagories << array
-      @subcatagories.flatten!
     end
 
 end

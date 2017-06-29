@@ -39,7 +39,7 @@ class ProductReviews::Scraper
 
 
 
-    #deletes and cleans up erroneous data and empty hash values
+    #deletes empty hashes and cleans up the summary values
   def self.sanitizer (hash)
       hash.each do |key,value|
         if key[:description] == nil
