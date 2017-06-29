@@ -19,20 +19,20 @@ class ProductReviews::Board
         puts "___________________________________________________"
       end
 
-        def self.choice (obj)
+        def self.choice(obj)
           puts "Type:"
           puts "'Exit' to Terminate"
           puts "'Continue' to Select another Product"
           puts "'Open' to open product page in your browser"
           puts ""
           @input = gets.downcase.strip
-            if @input == "open"
-              system("open #{obj[:readmore]} ")
-            elsif @input == "continue"
-              "continue"
+          puts ""
+            if @input == "continue"
+              true
             elsif @input == "exit"
-              system("clear")
-              abort "Thank you for using Product Reviewer\n See you soon"
+              "exit"
+            elsif @input == "open"
+                system("open #{obj[:readmore]} ")
             end
         end
 

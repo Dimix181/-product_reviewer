@@ -7,6 +7,8 @@
 
       greetings
 
+
+
       create_main_objects
 
         @objects_created = ProductReviews::Catagories.all
@@ -14,18 +16,18 @@
         main_catagories_list (@objects_created)
       system("clear")
 
-        add_subcatagories(@objects_created)
 
-        subcatagories_list(@objects_created)
 
-        ProductReviews::Board.display(@selected_obj, @selected_obj_description)
+    ProductReviews::Board.display(@selected_obj, @selected_obj_description)
 
-      if ProductReviews::Board.choice(@selected_obj) == "continue"
-      call
+      if ProductReviews::Board.choice(@selected_obj) == true
+       call
+      elsif ProductReviews::Board.choice(@selected_obj) == "exit"
+        system("clear")
+        abort "Thank you for using Product Reviewer\n See you soon"
       end
 
-
-    end
+  end
 
     def greetings
       puts "****** Welcome to The Product Reviewer ****"
@@ -50,15 +52,19 @@
 
       puts " "
       @input = gets.downcase.strip!
-
+      puts ""
       if @input.to_i <= 0 || @input.to_i > objects_created.size
         puts "#{@input} Is an Invalid Option"
         puts "Try Again !!"
+        puts ""
+
         main_catagories_list (@objects_created)
+      else
+        add_subcatagories(@objects_created)
       end
     end
 
-     def add_subcatagories(array_of_obj)
+    def add_subcatagories(array_of_obj)
 
           obj = array_of_obj[@input.to_i-1]
         if obj.subcatagories.empty? == true
@@ -72,6 +78,7 @@
             end
           end
         end
+        subcatagories_list(@objects_created)
       end
 
     def subcatagories_list(array_of_obj)
@@ -85,20 +92,19 @@
         end
         puts " "
         @input = gets.downcase.strip
-
-    if @input.to_i <= 0 || @input.to_i > obj.subcatagories.size
-
-      puts "#{@input} Is an Invalid Option"
-      puts "Try Again !!"
-
-      main_catagories_list (@objects_created)
-     else
+        puts ""
+      if @input.to_i <= 0 || @input.to_i > obj.subcatagories.size
+        puts "#{@input} Is an Invalid Option"
+        puts "Try Again !!"
+        puts ""
+        main_catagories_list (@objects_created)
+       else
 
        @selected_obj = obj.subcatagories[@input.to_i-1]
        @selected_obj_description = obj.description
+     end
+     ProductReviews::Board.display(@selected_obj, @selected_obj_description)
     end
-
-end
 
 
 
