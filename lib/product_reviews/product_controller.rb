@@ -42,21 +42,22 @@
 
     def main_catagories_list (objects_created)
       objects_created.each.with_index(1) do |obj, i |
-
           puts "#{i} #{obj.name}"
         end
 
       puts " "
       @input = gets.downcase.strip!
       puts ""
-      if @input == "exit"
-        @validator.send(@input)
-    elsif
-      @validator.valid_catagories(@input) ==false
-        main_catagories_list (@objects_created)
-      else
-        add_subcatagories(@objects_created)
-      end
+          if @input == "exit"
+            @validator.send(@input)
+        elsif
+          @validator.valid_catagories(@input) ==false
+          #returns to main list
+            main_catagories_list (@objects_created)
+          else
+          #moves forward to subcatagories
+            add_subcatagories(@objects_created)
+          end
     end
 
     def add_subcatagories(array_of_obj)

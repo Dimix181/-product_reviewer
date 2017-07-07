@@ -9,7 +9,7 @@ class ProductReviews::Input_handler
     end
 
     def valid_subcatagories(input)
-binding.pry
+
     end
 
     def invalid(input)
@@ -29,7 +29,7 @@ binding.pry
       #clears the screen
      system("clear")
       #aborts the program
-      abort "Thank you for using Product Reviewer\n See you soon"
+      abort "Thank you for using Product Reviewer\n See you soon for good product reviews"
     end
 
 end
