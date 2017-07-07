@@ -4,25 +4,17 @@
 
 
     def call
-
       greetings
+       create_main_objects
+          @objects_created = ProductReviews::Catagories.all
+          @validator = ProductReviews::Input_handler.new
+          main_catagories_list (@objects_created)
+        system("clear")
+          ProductReviews::Board.display(@selected_obj, @selected_obj_description)
 
-
-
-      create_main_objects
-
-        @objects_created = ProductReviews::Catagories.all
-        @validator = ProductReviews::Input_handler.new
-        main_catagories_list (@objects_created)
-      system("clear")
-
-
-
-    ProductReviews::Board.display(@selected_obj, @selected_obj_description)
-
-      if ProductReviews::Board.choice(@selected_obj) == true
-       call
-      end
+        if ProductReviews::Board.choice(@selected_obj) == true
+         call
+        end
 
   end
 
@@ -30,7 +22,6 @@
       puts "****** Welcome to The Product Reviewer ****"
       puts "*******************************************"
       puts " "
-
     end
 
     def create_main_objects
@@ -61,27 +52,25 @@
     end
 
     def add_subcatagories(array_of_obj)
-
           obj = array_of_obj[@input.to_i-1]
         if obj.subcatagories.empty? == true
           array = ProductReviews::Scraper.profile_page(obj.url)
-
-          array.each do |element|
-            if element[:description] != nil
-              obj.description = element[:description]
-              else
-              obj.subcatagories << element
+            array.each do |element|
+              if element[:description] != nil
+                obj.description = element[:description]
+               else
+                obj.subcatagories << element
+              end
             end
           end
-        end
         subcatagories_list(@objects_created)
       end
 
     def subcatagories_list(array_of_obj)
 
-      obj = array_of_obj[@input.to_i-1]
+      @obj = array_of_obj[@input.to_i-1]
 
-      obj.subcatagories.each.with_index(1) do |obj, i|
+      @obj.subcatagories.each.with_index(1) do |obj, i|
           if obj[:title] != nil
             puts "#{i} #{obj[:title]}"
           end
@@ -89,20 +78,17 @@
         puts " "
         @input = gets.downcase.strip
         puts ""
-      if @input.to_i <= 0 || @input.to_i > obj.subcatagories.size
-        puts "#{@input} Is an Invalid Option"
-        puts "Try Again !!"
-        puts ""
-        main_catagories_list (@objects_created)
+
+      if @input == "exit"
+         @validator.exit
+       elsif @validator.valid_subcatagories(@input, @obj)==false
+
+         subcatagories_list(@objects_created)
        else
-
-       @selected_obj = obj.subcatagories[@input.to_i-1]
-       @selected_obj_description = obj.description
-     end
-     ProductReviews::Board.display(@selected_obj, @selected_obj_description)
-    end
-
-
-
+         @selected_obj = @obj.subcatagories[@input.to_i-1]
+         @selected_obj_description = @obj.description
+         ProductReviews::Board.display(@selected_obj, @selected_obj_description)
+      end
+   end
 
  end

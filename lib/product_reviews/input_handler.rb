@@ -1,16 +1,20 @@
 class ProductReviews::Input_handler
 
     def valid_catagories(input)
-      if  input.to_i <= 0 || input.to_i > ProductReviews::Catagories.all.length
+        if  input.to_i <= 0 || input.to_i > ProductReviews::Catagories.all.length
+          invalid(input)
+         else
+           true
+       end
+    end
+
+   def valid_subcatagories(input, obj)
+      if input.to_i <= 0 || input.to_i > obj.subcatagories.size
         invalid(input)
-       else
-         true
+      else
+        true
      end
-    end
-
-    def valid_subcatagories(input)
-
-    end
+   end
 
     def invalid(input)
       system("clear")
