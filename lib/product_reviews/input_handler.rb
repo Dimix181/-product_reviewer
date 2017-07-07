@@ -1,25 +1,24 @@
 class ProductReviews::Input_handler
 
-    def valid?(input)
-binding.pry
+    def valid_catagories(input)
       if  input.to_i <= 0 || input.to_i > ProductReviews::Catagories.all.length
-        #clears the screen
-       system("clear")
-        puts ""
-        puts "An Invalid Option was entered!"
-        puts "Please Try Again!"
-        puts ""
-        sleep(1)
-      false
-    elsif input.to_i <= 0 || input.to_i > 
-
+        invalid(input)
        else
-      true
+         true
      end
     end
 
-    def restart
+    def valid_subcatagories(input)
+binding.pry
+    end
 
+    def invalid(input)
+      system("clear")
+      puts "#{input} Is an Invalid Option"
+      puts "Try Again !!"
+      puts ""
+      sleep(1)
+     false
     end
 
     def open (url)

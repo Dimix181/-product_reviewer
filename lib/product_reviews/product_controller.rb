@@ -12,7 +12,7 @@
       create_main_objects
 
         @objects_created = ProductReviews::Catagories.all
-
+        @validator = ProductReviews::Input_handler.new
         main_catagories_list (@objects_created)
       system("clear")
 
@@ -29,7 +29,6 @@
     def greetings
       puts "****** Welcome to The Product Reviewer ****"
       puts "*******************************************"
-      puts "Choose a Catagory to Get Started"
       puts " "
 
     end
@@ -50,11 +49,10 @@
       puts " "
       @input = gets.downcase.strip!
       puts ""
-      if @input.to_i <= 0 || @input.to_i > objects_created.size
-        puts "#{@input} Is an Invalid Option"
-        puts "Try Again !!"
-        puts ""
-
+      if @input == "exit"
+        @validator.send(@input)
+    elsif
+      @validator.valid_catagories(@input) ==false
         main_catagories_list (@objects_created)
       else
         add_subcatagories(@objects_created)
