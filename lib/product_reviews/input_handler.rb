@@ -25,15 +25,19 @@ class ProductReviews::Input_handler
      false
     end
 
-    def open (url)
-      system("open #{url}")
+    def continue
+      ProductReviews::ProductController.new.call
+    end
+
+    def open (obj)
+      system("open #{obj[:readmore]} ")
     end
 
     def exit
       #clears the screen
      system("clear")
       #aborts the program
-      abort "Thank you for using Product Reviewer\n See you soon for good product reviews"
+      abort "Thank you for using Product Reviewer\n See you soon!!
     end
 
 end

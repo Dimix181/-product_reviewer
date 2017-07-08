@@ -5,18 +5,14 @@
 
     def call
       greetings
-       create_main_objects
-          @objects_created = ProductReviews::Catagories.all
-          @validator = ProductReviews::Input_handler.new
-          main_catagories_list (@objects_created)
-        system("clear")
-          ProductReviews::Board.display(@selected_obj, @selected_obj_description)
-
-        if ProductReviews::Board.choice(@selected_obj) == true
-         call
-        end
-
-  end
+      create_main_objects
+      @objects_created = ProductReviews::Catagories.all
+      @validator = ProductReviews::Input_handler.new
+      main_catagories_list (@objects_created)
+    system("clear")
+     ProductReviews::Board.display(@selected_obj, @selected_obj_description)
+     ProductReviews::Board.choice(@selected_obj, @validator)
+end
 
     def greetings
       puts "****** Welcome to The Product Reviewer ****"

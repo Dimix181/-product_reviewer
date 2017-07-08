@@ -19,7 +19,7 @@ class ProductReviews::Board
         puts "___________________________________________________"
       end
 
-        def self.choice(obj)
+        def self.choice(obj, validator)
           puts "Type:"
           puts "'Exit' to Terminate"
           puts "'Continue' to Select another Product"
@@ -28,12 +28,15 @@ class ProductReviews::Board
           @input = gets.downcase.strip
           puts ""
             if @input == "continue"
-              true
+              validator.continue
             elsif @input == "exit"
-              system("clear")
-              abort "Thank you for using Product Reviewer\n See you soon"
+              validator.exit
             elsif @input == "open"
-                system("open #{obj[:readmore]} ")
+              validator.open(obj)
+              self.choice(obj, validator)
+              else
+                validator.invalid(@input)
+                self.choice(obj, validator)
             end
         end
 
