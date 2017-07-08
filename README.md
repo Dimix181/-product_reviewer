@@ -1,8 +1,10 @@
 # ProductReviews
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/product_reviews`. To experiment with that code, run `bin/console` for an interactive prompt.
+Hi!! Welcome  to the product reviewer GEM. This Gem allows the user to get recommendations on the best product to be from [www.thewirecutter.com]
 
-TODO: Delete this and the text above, and describe your gem
+No complicated instructions are need. Since this gem depends on the Nokogiri gem it is highly recommended to  run `bundle` before running. Contributions are always welcome via Github at the following address [https://github.com/Dimix181/product_reviewer](https://github.com/Dimix181/product_reviewer)
+
+This gem is licenses under MIT where more information can be found at [https://opensource.org/licenses/MIT](https://opensource.org/licenses/MIT)
 
 ## Installation
 
@@ -32,7 +34,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/product_reviews. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/dimix181/product_reviews. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
