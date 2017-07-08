@@ -21,7 +21,7 @@ end
     end
 
     def create_main_objects
-      if  ProductReviews::Catagories.all.empty? == true
+      if  ProductReviews::Catagories.all.empty?
         main_productlist = ProductReviews::Scraper.catagory
         ProductReviews::Catagories.create_from_hashes(main_productlist)
       end
@@ -49,10 +49,10 @@ end
 
     def add_subcatagories(array_of_obj)
           obj = array_of_obj[@input.to_i-1]
-        if obj.subcatagories.empty? == true
+        if obj.subcatagories.empty?
           array = ProductReviews::Scraper.profile_page(obj.url)
             array.each do |element|
-              if element[:description] != nil
+              if element[:description]
                 obj.description = element[:description]
                else
                 obj.subcatagories << element
@@ -67,7 +67,7 @@ end
       @obj = array_of_obj[@input.to_i-1]
 
       @obj.subcatagories.each.with_index(1) do |obj, i|
-          if obj[:title] != nil
+          if obj[:title]
             puts "#{i} #{obj[:title]}"
           end
         end
