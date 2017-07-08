@@ -37,7 +37,7 @@ class ProductReviews::Input_handler
       #clears the screen
      system("clear")
       #aborts the program
-      abort "Thank you for using Product Reviewer\n See you soon!!
+      abort "Thank you for using Product Reviewer\n See you soon!!"
     end
 
 end
