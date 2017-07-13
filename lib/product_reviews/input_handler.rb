@@ -1,10 +1,10 @@
 class ProductReviews::Input_handler
 
     def valid_catagories(input)
-        if  input.to_i <= 0 || input.to_i > ProductReviews::Catagories.all.length
-          invalid(input)
+       if input.to_i.between?(1 , ProductReviews::Catagories.all.length)
+          true
          else
-           true
+           invalid(input)
        end
     end
 

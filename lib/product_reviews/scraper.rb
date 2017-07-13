@@ -5,13 +5,13 @@ class ProductReviews::Scraper
   def self.catagory
     doc =  Nokogiri::HTML(open("http://www.thewirecutter.com"))
     section = doc.search(".wire_leaderboard a.leaderboard-title-inner")
-    product_list = []
+
       section.each do |obj|
-        product_list << {
+        ProductReviews::Catagories.new( {
           name: obj.inner_text,
-          url: obj["href"] }
+          url: obj["href"] } )
         end
-    product_list
+    
   end
 
   #adds the description,title,winning product, a summary and price into a hash of arrays

@@ -6,6 +6,7 @@
     def call
       greetings
       create_main_objects
+      binding.pry
       @objects_created = ProductReviews::Catagories.all
       @validator = ProductReviews::Input_handler.new
       main_catagories_list (@objects_created)
@@ -22,8 +23,8 @@ end
 
     def create_main_objects
       if  ProductReviews::Catagories.all.empty?
-        main_productlist = ProductReviews::Scraper.catagory
-        ProductReviews::Catagories.create_from_hashes(main_productlist)
+        ProductReviews::Scraper.catagory
+
       end
     end
 

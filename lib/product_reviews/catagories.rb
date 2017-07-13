@@ -8,9 +8,7 @@ class ProductReviews::Catagories
       @@all
   end
 
-    def self.create_from_hashes(product_list)
-      product_list.each { |hash| self.new(hash) }
-    end
+
 
     def initialize(hash)
       hash.each do |key,value|
@@ -18,6 +16,11 @@ class ProductReviews::Catagories
           end
       @@all << self
       @subcatagories = []
+    end
+
+    def self.sort_by_num_subcatagories
+      #return all catagories objects but sorted by the number of subcatagories - descending order
+      "hello"
     end
 
 end
