@@ -1,5 +1,4 @@
 class ProductReviews::Input_handler
-
     def valid_catagories(input)
        if input.to_i.between?(1 , ProductReviews::Catagories.all.length)
           true
@@ -8,7 +7,8 @@ class ProductReviews::Input_handler
        end
     end
 
-   def valid_subcatagories(input, obj)
+   def valid_subcatagories(obj, input)
+binding.pry
       if input.to_i <= 0 || input.to_i > obj.subcatagories.size
         invalid(input)
       else
@@ -31,6 +31,10 @@ class ProductReviews::Input_handler
 
     def open (obj)
       system("open #{obj[:readmore]} ")
+    end
+
+    def reverse
+      ProductReviews::Catagories.sort_by_num_subcatagories
     end
 
     def exit
