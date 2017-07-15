@@ -6,8 +6,9 @@
     def call
       greetings
       create_main_objects
-      binding.pry
       @objects_created = ProductReviews::Catagories.all
+      add_subcatagories(@objects_created)
+      binding.pry
       @validator = ProductReviews::Input_handler.new
       main_catagories_list (@objects_created)
     system("clear")
@@ -24,7 +25,6 @@ end
     def create_main_objects
       if  ProductReviews::Catagories.all.empty?
         ProductReviews::Scraper.catagory
-
       end
     end
 
@@ -48,20 +48,28 @@ end
           end
     end
 
-    def add_subcatagories(array_of_obj)
-          obj = array_of_obj[@input.to_i-1]
-        if obj.subcatagories.empty?
-          array = ProductReviews::Scraper.profile_page(obj.url)
-            array.each do |element|
-              if element[:description]
-                obj.description = element[:description]
-               else
-                obj.subcatagories << element
-              end
-            end
-          end
-        subcatagories_list(@objects_created)
+    def add_subcatagories(objects_created)
+      objects_created.each do |obj|
+        obj.subcatagories << ProductReviews::Scraper.profile_page(obj.url)
+        obj.subcatagories.flatten!
       end
+      objects_created
+    end
+
+#    def add_subcatagories(array_of_obj)
+#          obj = array_of_obj[@input.to_i-1]
+#        if obj.subcatagories.empty?
+#          array = ProductReviews::Scraper.profile_page(obj.url)
+#            array.each do |element|
+#              if element[:description]
+#                obj.description = element[:description]
+#               else
+#                obj.subcatagories << element
+#              end
+#            end
+#          end
+#        subcatagories_list(@objects_created)
+#      end
 
     def subcatagories_list(array_of_obj)
 

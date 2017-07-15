@@ -11,7 +11,7 @@ class ProductReviews::Scraper
           name: obj.inner_text,
           url: obj["href"] } )
         end
-    
+
   end
 
   #adds the description,title,winning product, a summary and price into a hash of arrays
@@ -19,7 +19,8 @@ class ProductReviews::Scraper
     doc = Nokogiri::HTML(open(url))
     grid_items = []
 
-    grid_items << { description:  doc.search(".content p").inner_text}
+    grid_items <<
+    { description:  doc.search(".content p").inner_text}
 
       doc.search(".grid-item").each do |obj|
     begin #error rescuimg since some :readmore key don't exist
@@ -35,6 +36,7 @@ class ProductReviews::Scraper
      end
     end
     self.sanitizer (grid_items)
+
   end
 
 
