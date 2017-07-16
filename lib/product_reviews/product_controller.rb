@@ -40,7 +40,6 @@
 
     def main_catagories_list (objects_created)
       @objects_created = objects_created
-      binding.pry
       @objects_created.each.with_index(1) do |obj, i |
           puts "#{i} #{obj.name}"
         end
@@ -81,7 +80,8 @@
         if @input_2 == "exit"
           @validator.exit
 
-         elsif @validator.valid_catagories(@selected_obj, @input_2)
+        elsif @validator.valid_catagories(@selected_obj.reject.with_index{|v, i|  i==0 }, @input_2.to_i)
+
           ProductReviews::Board.display(@selected_obj[@input_2.to_i], @selected_obj[0][:description])
          else
            subcatagories_list(@objects_created, @input)
