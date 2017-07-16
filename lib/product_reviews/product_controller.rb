@@ -6,30 +6,27 @@
     def call
       greetings
       create_main_objects
-      @objects_created = ProductReviews::Catagories.all
-      add_subcatagories(@objects_created)
       @validator = ProductReviews::Input_handler.new
       main_catagories_list (@objects_created)
       subcatagories_list(@objects_created, @input)
-  binding.pry
-
-
-#    system("clear")
-#     ProductReviews::Board.display(@selected_obj, @selected_obj_description)
-#     ProductReviews::Board.choice(@selected_obj, @validator)
-end
+      ProductReviews::Board.choice(@selected_obj[@input_2.to_i], @validator)
+    end
 
     def greetings
       puts "****** Welcome to The Product Reviewer ****"
       puts "*******************************************"
       puts " "
       puts "Loading  ... "
-
+      puts " "
     end
 
     def create_main_objects
       if  ProductReviews::Catagories.all.empty?
         ProductReviews::Scraper.catagory
+        @objects_created = ProductReviews::Catagories.all
+        add_subcatagories(@objects_created)
+      else
+        @objects_created = ProductReviews::Catagories.all
       end
     end
 
@@ -42,25 +39,28 @@ end
     end
 
     def main_catagories_list (objects_created)
-      objects_created.each.with_index(1) do |obj, i |
+      @objects_created = objects_created
+      binding.pry
+      @objects_created.each.with_index(1) do |obj, i |
           puts "#{i} #{obj.name}"
         end
-
+#======Prompt========#
           puts " "
+          puts "Choose a catagory or type:\n |'exit' to terminate|\n |'sort' to arrange in accending order base on subcatagories|\n\n"
           @input = gets.downcase.strip!
           puts ""
-              if @input == "exit"
-                @validator.send(@input)
-            elsif  @input == "reverse"
-              main_catagories_list (@validator.send(@input))
-
-            elsif
-              @validator.valid_catagories(@input)
+#======End of Prompt========#
+            if @input == "exit"
+                @validator.exit
+              elsif  @input == "sort"
+                @objects_created = @validator.send(@input)
+                main_catagories_list(@objects_created)
+              elsif
+                @validator.valid_catagories(@objects_created, @input)
               else
-              # returns to main list
                 main_catagories_list (@objects_created)
-              end
-    end
+            end
+       end
 
 
 
@@ -73,40 +73,20 @@ end
             puts "  #{i} #{obj[:title]}"
           end
         end
+
         puts " "
         @input_2 = gets.downcase.strip
         puts ""
 
-      if @input == "exit"
-         @validator.exit
-  binding.pry
-      elsif @validator.valid_subcatagories(@selected_ob, @input_2)==false
-  binding.pry
-        subcatagories_list(@objects_created, @input)
-       else
-  binding.pry
-         @selected_obj = @obj.subcatagories[@input.to_i-1]
-         @selected_obj_description = @obj.description
-         ProductReviews::Board.display(@selected_obj, @selected_obj_description)
-      end
-   end
+        if @input_2 == "exit"
+          @validator.exit
 
-
-
-#    def add_subcatagories(array_of_obj)
-#          obj = array_of_obj[@input.to_i-1]
-#        if obj.subcatagories.empty?
-#          array = ProductReviews::Scraper.profile_page(obj.url)
-#            array.each do |element|
-#              if element[:description]
-#                obj.description = element[:description]
-#               else
-#                obj.subcatagories << element
-#              end
-#            end
-#          end
-#        subcatagories_list(@objects_created)
-#      end
+         elsif @validator.valid_catagories(@selected_obj, @input_2)
+          ProductReviews::Board.display(@selected_obj[@input_2.to_i], @selected_obj[0][:description])
+         else
+           subcatagories_list(@objects_created, @input)
+        end
+    end
 
 
 

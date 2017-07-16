@@ -5,7 +5,6 @@ class ProductReviews::Board
     def self.display(obj, description)
       system("clear") #clears the screen
 
-
         puts "___________________________________________________"
         puts" #{description}"
         puts "___________________________________________________"

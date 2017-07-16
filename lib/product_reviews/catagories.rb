@@ -21,11 +21,9 @@ class ProductReviews::Catagories
     def self.sort_by_num_subcatagories
       #return all catagories objects but sorted by the number of subcatagories - descending order
       "hello"
-
-    sorted_array =  ProductReviews::Catagories.all.sort_by do |obj|
+      sorted_array =  ProductReviews::Catagories.all.sort_by do |obj|
          obj.subcatagories.size
       end
-      binding.pry
       sorted_array
     end
 

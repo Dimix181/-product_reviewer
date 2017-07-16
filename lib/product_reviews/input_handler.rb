@@ -1,27 +1,18 @@
 class ProductReviews::Input_handler
-    def valid_catagories(input)
-       if input.to_i.between?(1 , ProductReviews::Catagories.all.length)
+    def valid_catagories(objects_created, input)
+       if input.to_i.between?(1 , objects_created.size)
           true
          else
            invalid(input)
        end
     end
 
-   def valid_subcatagories(obj, input)
-binding.pry
-      if input.to_i <= 0 || input.to_i > obj.subcatagories.size
-        invalid(input)
-      else
-        true
-     end
-   end
-
     def invalid(input)
       system("clear")
       puts "#{input} Is an Invalid Option"
       puts "Try Again !!"
       puts ""
-      sleep(1)
+      sleep(2)
      false
     end
 
@@ -33,8 +24,8 @@ binding.pry
       system("open #{obj[:readmore]} ")
     end
 
-    def reverse
-      ProductReviews::Catagories.sort_by_num_subcatagories
+    def sort
+    ProductReviews::Catagories.sort_by_num_subcatagories
     end
 
     def exit
