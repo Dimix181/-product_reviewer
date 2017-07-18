@@ -31,18 +31,22 @@
     end
 
     def add_subcatagories(objects_created)
-      objects_created.each do |obj|
-        obj.subcatagories << ProductReviews::Scraper.profile_page(obj.url)
-        obj.subcatagories.flatten!
-      end
+  #    objects_created.each do |obj|
+  #      obj.subcatagories << ProductReviews::Scraper.profile_page(obj.url)
+  #      obj.subcatagories.flatten!
+  #    end
       objects_created
     end
 
     def main_catagories_list (objects_created)
       @objects_created = objects_created
       @objects_created.each.with_index(1) do |obj, i |
+    binding.pry
+        obj.subcatagories << ProductReviews::Scraper.profile_page(obj.url)
+        obj.subcatagories.flatten!
           puts "#{i} #{obj.name}"
         end
+
 #======Prompt========#
           puts " "
           puts "Choose a catagory or type:\n |'exit' to terminate|\n |'sort' to arrange in accending order base on subcatagories|\n\n"
